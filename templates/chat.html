@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat with Your Documents</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .message-container::-webkit-scrollbar {
+        width: 8px;
+      }
+      .message-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .message-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+      .message-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    </style>
+  </head>
+  <body class="h-full flex items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl shadow-xl w-full max-w-4xl h-full max-h-[800px] flex flex-col overflow-hidden"
+    >
+      <!-- Header -->
+      <div
+        class="bg-gray-800 text-white p-4 flex items-center justify-between rounded-t-2xl"
+      >
+        <h1 class="text-2xl font-bold">Document Q&A Bot</h1>
+        <a
+          href="/"
+          class="text-gray-300 hover:text-white transition-colors duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
+            />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Message Container -->
+      <div
+        id="chat-messages"
+        class="flex-grow p-4 overflow-y-auto message-container space-y-4"
+      >
+        <!-- Initial bot message -->
+        <div class="flex justify-start">
+          <div class="bg-gray-200 p-4 rounded-lg max-w-lg">
+            <p class="text-gray-800">
+              Hello! I'm ready to answer questions about your uploaded
+              documents. What would you like to ask?
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Form -->
+      <form
+        id="chat-form"
+        class="p-4 border-t border-gray-200 flex items-end space-x-2"
+      >
+        <textarea
+          id="question-input"
+          rows="1"
+          placeholder="Type your question here..."
+          class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-hidden"
+        ></textarea>
+        <button
+          type="submit"
+          class="bg-blue-600 text-white rounded-lg p-3 w-12 h-12 flex items-center justify-center transition-colors duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+            />
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <script>
+      const chatForm = document.getElementById("chat-form");
+      const questionInput = document.getElementById("question-input");
+      const chatMessages = document.getElementById("chat-messages");
+
+      // Function to create and append a message element
+      function addMessage(text, isUser = false) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add(
+          "flex",
+          isUser ? "justify-end" : "justify-start"
+        );
+
+        const textContainer = document.createElement("div");
+        textContainer.classList.add("p-4", "rounded-lg", "max-w-lg");
+        textContainer.classList.add(isUser ? "bg-blue-500" : "bg-gray-200");
+        textContainer.classList.add(isUser ? "text-white" : "text-gray-800");
+
+        // Handle markdown formatting and line breaks from the backend
+        const formattedText = text.replace(/\n/g, "<br>");
+        textContainer.innerHTML = formattedText;
+
+        messageDiv.appendChild(textContainer);
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+      }
+
+      // Handle form submission
+      chatForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const question = questionInput.value.trim();
+
+        if (!question) {
+          return;
+        }
+
+        // Add user's message to the chat
+        addMessage(question, true);
+        questionInput.value = "";
+
+        // Show a "typing" indicator
+        const loadingIndicator = document.createElement("div");
+        loadingIndicator.innerHTML = `
+                <div class="flex justify-start">
+                    <div class="bg-gray-200 p-4 rounded-lg max-w-lg">
+                        <div class="flex space-x-1">
+                            <span class="dot-flashing bg-gray-600 w-2 h-2 rounded-full animate-bounce" style="animation-delay: 0s;"></span>
+                            <span class="dot-flashing bg-gray-600 w-2 h-2 rounded-full animate-bounce" style="animation-delay: 0.2s;"></span>
+                            <span class="dot-flashing bg-gray-600 w-2 h-2 rounded-full animate-bounce" style="animation-delay: 0.4s;"></span>
+                        </div>
+                    </div>
+                </div>`;
+        chatMessages.appendChild(loadingIndicator);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+          const response = await fetch("/ask", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ question: question }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          chatMessages.removeChild(loadingIndicator); // Remove loading indicator
+          addMessage(data.response);
+        } catch (error) {
+          console.error("Error:", error);
+          chatMessages.removeChild(loadingIndicator);
+          addMessage(
+            "Sorry, I'm having trouble connecting. Please try again later."
+          );
+        }
+      });
+
+      // Auto-resize the textarea
+      questionInput.addEventListener("input", () => {
+        questionInput.style.height = "auto";
+        questionInput.style.height = questionInput.scrollHeight + "px";
+      });
+    </script>
+  </body>
+</html>

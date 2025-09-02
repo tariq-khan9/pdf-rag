@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}RAG Flask App{% endblock %}</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .nav {
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .nav a {
+        display: inline-block;
+        margin: 0 15px;
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+      .nav a:hover {
+        background: #0056b3;
+      }
+      .flash-messages {
+        margin-bottom: 20px;
+      }
+      .flash-message {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <a href="/">📁 Upload PDFs</a>
+        <a href="/chat">💬 Chat with Documents</a>
+      </div>
+
+      <div class="flash-messages">
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+        message in messages %}
+        <div class="flash-message">{{ message }}</div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

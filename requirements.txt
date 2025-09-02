@@ -1,0 +1,9 @@
+Flask
+langchain
+langchain-community
+langchain-chroma
+langchain-deepseek
+pypdf2
+python-dotenv
+requests
+chromadb

@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}Upload PDFs - RAG App{% endblock %}
+{% block content %}
+<h1>📚 PDF Document Upload</h1>
+
+<div style="margin-bottom: 30px">
+  <h2>Upload a PDF Document</h2>
+  <form method="post" action="/upload" enctype="multipart/form-data">
+    <div style="margin-bottom: 15px">
+      <input type="file" name="file" accept=".pdf" style="margin-right: 10px" />
+      <button
+        type="submit"
+        style="
+          padding: 8px 16px;
+          background: #28a745;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        "
+      >
+        Upload PDF
+      </button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <h2>Uploaded Documents</h2>
+  {% if files %}
+  <ul style="list-style-type: none; padding: 0">
+    {% for file in files %}
+    <li
+      style="
+        padding: 10px;
+        margin-bottom: 5px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        border-left: 4px solid #007bff;
+      "
+    >
+      📄 {{ file }}
+    </li>
+    {% endfor %}
+  </ul>
+  <p style="color: #6c757d; margin-top: 20px">
+    <strong>{{ files|length }}</strong> document(s) uploaded.
+    <a href="/chat" style="color: #007bff"
+      >Go to chat to ask questions about them!</a
+    >
+  </p>
+  {% else %}
+  <p style="color: #6c757d">
+    No documents uploaded yet. Upload some PDFs to get started!
+  </p>
+  {% endif %}
+</div>
+{% endblock %}
