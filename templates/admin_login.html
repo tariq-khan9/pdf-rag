@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-100">
+<html lang="en" class="h-full bg-gray-900 dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,18 +14,18 @@
         }
     </style>
 </head>
-<body class="h-full flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+<body class="h-full flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
         <div>
-            <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-blue-100">
-                <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-blue-900">
+                <svg class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
             </div>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
                 Admin Login
             </h2>
-            <p class="mt-2 text-center text-sm text-gray-600">
+            <p class="mt-2 text-center text-sm text-gray-400">
                 Enter your credentials to access the admin panel
             </p>
         </div>
@@ -35,13 +35,13 @@
                 <div>
                     <label for="username" class="sr-only">Username</label>
                     <input id="username" name="username" type="text" required 
-                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-400 text-white bg-gray-800 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
                            placeholder="Username">
                 </div>
                 <div>
                     <label for="password" class="sr-only">Password</label>
                     <input id="password" name="password" type="password" required 
-                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-400 text-white bg-gray-800 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
                            placeholder="Password">
                 </div>
             </div>
@@ -49,7 +49,7 @@
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
-                        <div class="rounded-md bg-red-50 p-4">
+                        <div class="rounded-md bg-red-900 p-4 border border-red-800">
                             <div class="flex">
                                 <div class="flex-shrink-0">
                                     <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
@@ -57,7 +57,7 @@
                                     </svg>
                                 </div>
                                 <div class="ml-3">
-                                    <h3 class="text-sm font-medium text-red-800">
+                                    <h3 class="text-sm font-medium text-red-200">
                                         {{ message }}
                                     </h3>
                                 </div>
@@ -80,7 +80,7 @@
             </div>
 
             <div class="text-center">
-                <a href="/" class="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200">
+                <a href="/" class="font-medium text-blue-400 hover:text-blue-300 transition-colors duration-200">
                     ← Back to Home
                 </a>
             </div>
