@@ -23,6 +23,21 @@ def get_available_files():
     return pdf_files
 
 
+def get_downloads_files():
+    """Get list of files in downloads folder with metadata."""
+    download_files = []
+    if os.path.exists(Config.DOWNLOAD_FOLDER):
+        for filename in os.listdir(Config.DOWNLOAD_FOLDER):
+            file_path = os.path.join(Config.DOWNLOAD_FOLDER, filename)
+            file_size = os.path.getsize(file_path)
+            download_files.append({
+                'filename': filename,
+                'size': file_size,
+                'path': file_path
+            })
+    return download_files
+
+
 def extract_file_operation(response_text):
     """Extract file operations from AI response."""
     operations = {

@@ -8,7 +8,7 @@ import uuid
 from config import Config
 from rag_handler import RAGHandler
 from pdf_formatter import create_enhanced_pdf_summary
-from utils import allowed_file, get_available_files, extract_file_operation, format_response_with_links
+from utils import allowed_file, get_available_files, get_downloads_files, extract_file_operation, format_response_with_links
 from memory_manager import MemoryManager
 
 # Load environment variables
@@ -103,6 +103,45 @@ def clear_memory():
     session_id = get_session_id()
     memory_manager.clear_memory(session_id)
     return jsonify({'status': 'Memory cleared successfully'})
+
+
+@app.route('/admin')
+def admin():
+    """Admin page for file management."""
+    uploads_files = get_available_files()
+    downloads_files = get_downloads_files()
+    return render_template('admin.html', uploads_files=uploads_files, downloads_files=downloads_files)
+
+
+@app.route('/delete-file', methods=['POST'])
+def delete_file():
+    """Delete a file from uploads or downloads folder."""
+    data = request.json
+    folder = data.get('folder')  # 'uploads' or 'downloads'
+    filename = data.get('filename')
+    
+    if not folder or not filename:
+        return jsonify({'error': 'Missing folder or filename'}), 400
+    
+    if folder not in ['uploads', 'downloads']:
+        return jsonify({'error': 'Invalid folder'}), 400
+    
+    try:
+        if folder == 'uploads':
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            # Reset vector store when deleting from uploads
+            rag_handler.reset_vectorstore()
+        else:
+            file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], filename)
+        
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            return jsonify({'status': 'File deleted successfully'})
+        else:
+            return jsonify({'error': 'File not found'}), 404
+            
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/ask', methods=['POST'])
