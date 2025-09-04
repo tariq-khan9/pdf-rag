@@ -68,39 +68,32 @@
                     </h2>
                 </div>
                 <div class="p-6">
-                    <form method="post" action="/upload" enctype="multipart/form-data" class="space-y-6">
-                        <div>
-                            <label for="file" class="block text-sm font-medium text-gray-700 mb-2">
-                                Select PDF File
-                            </label>
-                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-gray-400 transition-colors duration-200">
-                                <div class="space-y-1 text-center">
-                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    <div class="flex text-sm text-gray-600">
-                                        <label for="file" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
-                                            <span>Upload a file</span>
-                                            <input id="file" name="file" type="file" accept=".pdf" class="sr-only" required>
-                                        </label>
-                                        <p class="pl-1">or drag and drop</p>
-                                    </div>
-                                    <p class="text-xs text-gray-500">PDF files only</p>
-                                </div>
+                    <form method="post" action="/upload" enctype="multipart/form-data" id="uploadForm">
+                        <div class="space-y-6">
+                            <!-- Simple file input -->
+                            <div>
+                                <label for="file" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Select PDF File
+                                </label>
+                                <input id="file" name="file" type="file" accept=".pdf" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" required>
+                                <p class="mt-1 text-sm text-gray-500">PDF files only (Max 50MB)</p>
                             </div>
+                            
+                            <!-- File info display -->
+                            <div id="fileInfo" class="hidden text-sm text-green-600 font-medium"></div>
                         </div>
                         
-                        <div class="flex justify-end">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="mt-6 flex justify-end">
+                            <button type="submit" id="uploadBtn" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                                 </svg>
                                 Upload PDF
                             </button>
                         </div>
-                    </form>
+  </form>
                 </div>
-            </div>
+</div>
 
             <!-- Files Section -->
             <div class="bg-white shadow rounded-lg">
@@ -113,9 +106,9 @@
                     </h2>
                 </div>
                 <div class="p-6">
-                    {% if files %}
+  {% if files %}
                         <div class="space-y-3 max-h-96 overflow-y-auto file-container">
-                            {% for file in files %}
+    {% for file in files %}
                             <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
                                 <div class="flex items-center flex-1 min-w-0">
                                     <svg class="h-8 w-8 text-red-600 flex-shrink-0 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -134,7 +127,7 @@
                                     </a>
                                 </div>
                             </div>
-                            {% endfor %}
+    {% endfor %}
                         </div>
                         
                         <div class="mt-6 p-4 bg-blue-50 rounded-lg">
@@ -155,7 +148,7 @@
                                 </div>
                             </div>
                         </div>
-                    {% else %}
+  {% else %}
                         <div class="text-center py-8">
                             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
@@ -163,37 +156,10 @@
                             <h3 class="mt-2 text-sm font-medium text-gray-900">No documents uploaded</h3>
                             <p class="mt-1 text-sm text-gray-500">Upload some PDF files to get started with the RAG system.</p>
                         </div>
-                    {% endif %}
-                </div>
+  {% endif %}
+</div>
             </div>
 
-            <!-- Admin Panel Section -->
-            <div class="mt-8 bg-white shadow rounded-lg">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-medium text-gray-900 flex items-center">
-                        <svg class="h-5 w-5 text-red-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
-                        Admin Panel
-                    </h2>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-sm font-medium text-gray-900">File Management</h3>
-                            <p class="text-sm text-gray-500 mt-1">
-                                Access the admin panel to manage files and view system information.
-                            </p>
-                        </div>
-                        <a href="/admin-login" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
-                            <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                            Admin Login
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -228,6 +194,53 @@
                         }, 300);
                     }
                 }, 5000);
+
+                // Simple file upload functionality
+                document.addEventListener('DOMContentLoaded', function() {
+                    console.log('DOM loaded, initializing basic upload functionality...');
+                    
+                    const fileInput = document.getElementById('file');
+                    const uploadBtn = document.getElementById('uploadBtn');
+                    const fileInfo = document.getElementById('fileInfo');
+
+                    console.log('Elements found:', { fileInput, uploadBtn, fileInfo });
+
+                    // Simple file selection handler
+                    if (fileInput) {
+                        fileInput.addEventListener('change', function(e) {
+                            console.log('File selected:', e.target.files[0]);
+                            const file = e.target.files[0];
+                            
+                            if (file) {
+                                fileInfo.textContent = `Selected: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+                                fileInfo.classList.remove('hidden');
+                                console.log('File info updated');
+                            } else {
+                                fileInfo.classList.add('hidden');
+                            }
+                        });
+                    }
+
+                    // Simple form submission handler
+                    const form = document.getElementById('uploadForm');
+                    if (form) {
+                        form.addEventListener('submit', function(e) {
+                            console.log('Form submitting...');
+                            
+                            if (!fileInput.files[0]) {
+                                e.preventDefault();
+                                alert('Please select a file to upload');
+                                console.log('No file selected, preventing submission');
+                                return;
+                            }
+                            
+                            console.log('File selected, allowing submission');
+                            uploadBtn.innerHTML = 'Uploading...';
+                        });
+                    }
+
+                    console.log('Basic upload functionality initialized');
+                });
             </script>
         {% endif %}
     {% endwith %}

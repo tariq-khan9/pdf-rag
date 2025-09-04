@@ -39,18 +39,28 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     """Handles the file upload and text extraction."""
+    print(f"Upload request received. Files: {request.files}")
+    print(f"Form data: {request.form}")
+    
     if 'file' not in request.files:
+        print("No file in request.files")
         flash('No file selected')
-        return redirect(request.url)
+        return redirect(url_for('index'))
 
     file = request.files['file']
+    print(f"File object: {file}")
+    print(f"File filename: {file.filename}")
+    print(f"File content type: {file.content_type}")
+    
     if file.filename == '':
+        print("Empty filename")
         flash('No file selected')
-        return redirect(request.url)
+        return redirect(url_for('index'))
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        print(f"Saving file to: {file_path}")
         file.save(file_path)
 
         # Reset the vector store to rebuild it with new file
@@ -59,6 +69,7 @@ def upload_file():
         flash(f'File {filename} uploaded successfully! The document will now be processed for RAG.')
         return redirect(url_for('index'))
     else:
+        print(f"File validation failed. File: {file}, allowed_file: {allowed_file(file.filename) if file else 'No file'}")
         flash('Please upload a PDF file')
         return redirect(url_for('index'))
 
