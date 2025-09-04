@@ -105,12 +105,38 @@ def clear_memory():
     return jsonify({'status': 'Memory cleared successfully'})
 
 
+@app.route('/admin-login', methods=['GET', 'POST'])
+def admin_login():
+    """Admin login page."""
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username == Config.ADMIN_USERNAME and password == Config.ADMIN_PASSWORD:
+            session['admin_logged_in'] = True
+            return redirect(url_for('admin'))
+        else:
+            flash('Invalid credentials', 'error')
+    
+    return render_template('admin_login.html')
+
+
 @app.route('/admin')
 def admin():
     """Admin page for file management."""
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    
     uploads_files = get_available_files()
     downloads_files = get_downloads_files()
     return render_template('admin.html', uploads_files=uploads_files, downloads_files=downloads_files)
+
+
+@app.route('/admin-logout')
+def admin_logout():
+    """Admin logout."""
+    session.pop('admin_logged_in', None)
+    return redirect(url_for('index'))
 
 
 @app.route('/delete-file', methods=['POST'])
@@ -213,6 +239,12 @@ def ask_question():
 
 
 if __name__ == '__main__':
-    # Initialize the RAG handler on startup
-    rag_handler.initialize()
+    # Initialize the RAG handler on startup (optional - will be initialized when needed)
+    try:
+        rag_handler.initialize()
+        print("RAG handler initialized successfully on startup.")
+    except Exception as e:
+        print(f"RAG handler initialization failed on startup: {e}")
+        print("RAG handler will be initialized when first needed.")
+    
     app.run(debug=True, port=5050)

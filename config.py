@@ -13,6 +13,10 @@ class Config:
     # API Keys
     DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
     
+    # Admin Credentials
+    ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
+    ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "tariq")
+    
     # Directory settings
     UPLOAD_FOLDER = 'uploads'
     DOWNLOAD_FOLDER = 'downloads'
