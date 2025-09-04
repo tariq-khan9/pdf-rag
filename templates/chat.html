@@ -147,8 +147,13 @@
         textContainer.classList.add(isUser ? "bg-blue-500" : "bg-gray-200");
         textContainer.classList.add(isUser ? "text-white" : "text-gray-800");
 
-        // Handle markdown formatting and line breaks from the backend
-        const formattedText = text.replace(/\n/g, "<br>");
+        // Handle markdown formatting, links, and line breaks from the backend
+        let formattedText = text
+          // Convert markdown links [text](url) to HTML links
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank">$1</a>')
+          // Convert line breaks
+          .replace(/\n/g, "<br>");
+        
         textContainer.innerHTML = formattedText;
 
         messageDiv.appendChild(textContainer);
