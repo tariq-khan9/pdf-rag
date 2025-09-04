@@ -1,76 +1,235 @@
-{% extends "base.html" %} {% block title %}Upload PDFs - RAG App{% endblock %}
-{% block content %}
-<h1>📚 PDF Document Upload</h1>
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF RAG - Document Upload</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+        }
+        .file-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .file-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .file-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        .file-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="h-full">
+    <div class="min-h-screen bg-gray-100">
+        <!-- Header -->
+        <div class="bg-white shadow">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-6">
+                    <div class="flex items-center">
+                        <h1 class="text-3xl font-bold text-gray-900">PDF RAG System</h1>
+                        <span class="ml-3 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+                            Document Upload
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="/chat" class="text-gray-500 hover:text-gray-700 transition-colors duration-200" title="Chat">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                        </a>
+                        <a href="/admin-login" class="text-red-500 hover:text-red-700 transition-colors duration-200" title="Admin">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div style="margin-bottom: 30px">
-  <h2>Upload a PDF Document</h2>
-  <form method="post" action="/upload" enctype="multipart/form-data">
-    <div style="margin-bottom: 15px">
-      <input type="file" name="file" accept=".pdf" style="margin-right: 10px" />
-      <button
-        type="submit"
-        style="
-          padding: 8px 16px;
-          background: #28a745;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        "
-      >
-        Upload PDF
-      </button>
+        <!-- Main Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Upload Section -->
+            <div class="bg-white shadow rounded-lg mb-8">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-medium text-gray-900 flex items-center">
+                        <svg class="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                        </svg>
+                        Upload PDF Documents
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <form method="post" action="/upload" enctype="multipart/form-data" class="space-y-6">
+                        <div>
+                            <label for="file" class="block text-sm font-medium text-gray-700 mb-2">
+                                Select PDF File
+                            </label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-gray-400 transition-colors duration-200">
+                                <div class="space-y-1 text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="flex text-sm text-gray-600">
+                                        <label for="file" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                            <span>Upload a file</span>
+                                            <input id="file" name="file" type="file" accept=".pdf" class="sr-only" required>
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500">PDF files only</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                                </svg>
+                                Upload PDF
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Files Section -->
+            <div class="bg-white shadow rounded-lg">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-medium text-gray-900 flex items-center">
+                        <svg class="h-5 w-5 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Uploaded Documents ({{ files|length }})
+                    </h2>
+                </div>
+                <div class="p-6">
+                    {% if files %}
+                        <div class="space-y-3 max-h-96 overflow-y-auto file-container">
+                            {% for file in files %}
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                                <div class="flex items-center flex-1 min-w-0">
+                                    <svg class="h-8 w-8 text-red-600 flex-shrink-0 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 truncate">{{ file.filename }}</p>
+                                        <p class="text-sm text-gray-500">{{ (file.size / 1024 / 1024)|round(2) }} MB</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <a href="/download/{{ file.filename }}" class="text-blue-600 hover:text-blue-800 transition-colors duration-200" title="Download">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <div>
+                                    <h3 class="text-sm font-medium text-blue-800">
+                                        Ready to Chat!
+                                    </h3>
+                                    <p class="text-sm text-blue-700 mt-1">
+                                        You have <strong>{{ files|length }}</strong> document(s) uploaded. 
+                                        <a href="/chat" class="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200">
+                                            Go to chat to ask questions about them!
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-8">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                            </svg>
+                            <h3 class="mt-2 text-sm font-medium text-gray-900">No documents uploaded</h3>
+                            <p class="mt-1 text-sm text-gray-500">Upload some PDF files to get started with the RAG system.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Admin Panel Section -->
+            <div class="mt-8 bg-white shadow rounded-lg">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-medium text-gray-900 flex items-center">
+                        <svg class="h-5 w-5 text-red-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        Admin Panel
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">File Management</h3>
+                            <p class="text-sm text-gray-500 mt-1">
+                                Access the admin panel to manage files and view system information.
+                            </p>
+                        </div>
+                        <a href="/admin-login" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
+                            <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            Admin Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </form>
-</div>
 
-<div>
-  <h2>Uploaded Documents</h2>
-  {% if files %}
-  <ul style="list-style-type: none; padding: 0">
-    {% for file in files %}
-    <li
-      style="
-        padding: 10px;
-        margin-bottom: 5px;
-        background: #f8f9fa;
-        border-radius: 4px;
-        border-left: 4px solid #007bff;
-      "
-    >
-      📄 {{ file }}
-    </li>
-    {% endfor %}
-  </ul>
-  <p style="color: #6c757d; margin-top: 20px">
-    <strong>{{ files|length }}</strong> document(s) uploaded.
-    <a href="/chat" style="color: #007bff"
-      >Go to chat to ask questions about them!</a
-    >
-  </p>
-  
-  <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
-    <h3 style="margin: 0 0 10px 0; color: #495057;">Admin Panel</h3>
-    <p style="margin: 0 0 10px 0; color: #6c757d; font-size: 14px;">
-      Access the admin panel to manage files and view system information.
-    </p>
-    <a href="/admin-login" style="
-      display: inline-block;
-      padding: 8px 16px;
-      background: #dc3545;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-size: 14px;
-      transition: background-color 0.2s;
-    " onmouseover="this.style.backgroundColor='#c82333'" onmouseout="this.style.backgroundColor='#dc3545'">
-      🔐 Admin Login
-    </a>
-  </div>
-  {% else %}
-  <p style="color: #6c757d">
-    No documents uploaded yet. Upload some PDFs to get started!
-  </p>
-  {% endif %}
-</div>
-{% endblock %}
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="message-container" class="fixed top-4 right-4 z-50 space-y-2">
+                {% for category, message in messages %}
+                    <div class="{% if category == 'error' %}bg-red-500{% else %}bg-green-500{% endif %} text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2">
+                        {% if category == 'error' %}
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        {% else %}
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        {% endif %}
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <script>
+                // Auto remove flash messages after 5 seconds
+                setTimeout(() => {
+                    const container = document.getElementById('message-container');
+                    if (container) {
+                        container.style.opacity = '0';
+                        setTimeout(() => {
+                            container.remove();
+                        }, 300);
+                    }
+                }, 5000);
+            </script>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
