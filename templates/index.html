@@ -35,7 +35,7 @@
                 <div class="flex justify-between items-center py-6">
                     <div class="flex items-center">
                         <h1 class="text-3xl font-bold text-white">PDF RAG System</h1>
-                        <span class="ml-3 px-3 py-1 bg-blue-900 text-blue-200 text-sm font-medium rounded-full">
+                        <span class="ml-3 px-3 py-1 bg-purple-900 text-purple-200 text-sm font-medium rounded-full">
                             Document Upload
                         </span>
                     </div>
@@ -61,7 +61,7 @@
             <div class="bg-gray-800 shadow-lg rounded-lg mb-8 border border-gray-700">
                 <div class="px-6 py-4 border-b border-gray-700">
                     <h2 class="text-lg font-medium text-white flex items-center">
-                        <svg class="h-5 w-5 text-blue-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-purple-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                         </svg>
                         Upload PDF Documents
@@ -84,7 +84,7 @@
                             
                             <!-- Upload button -->
                             <div class="flex-shrink-0">
-                                <button type="submit" id="uploadBtn" class="inline-flex items-center px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                <button type="submit" id="uploadBtn" class="inline-flex items-center px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200">
                                     <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                                     </svg>
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <a href="/download/{{ file.filename }}" class="text-blue-400 hover:text-blue-300 transition-colors duration-200" title="Download">
+                                    <a href="/download/{{ file.filename }}" class="text-purple-400 hover:text-purple-300 transition-colors duration-200" title="Download">
                                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
@@ -131,18 +131,18 @@
     {% endfor %}
                         </div>
                         
-                        <div class="mt-6 p-4 bg-blue-900 rounded-lg border border-blue-800">
+                        <div class="mt-6 p-4 bg-purple-900 rounded-lg border border-purple-800">
                             <div class="flex items-center">
-                                <svg class="h-5 w-5 text-blue-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg class="h-5 w-5 text-purple-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <div>
-                                    <h3 class="text-sm font-medium text-blue-200">
+                                    <h3 class="text-sm font-medium text-purple-200">
                                         Ready to Chat!
                                     </h3>
-                                    <p class="text-sm text-blue-300 mt-1">
+                                    <p class="text-sm text-purple-300 mt-1">
                                         You have <strong>{{ files|length }}</strong> document(s) uploaded. 
-                                        <a href="/chat" class="font-medium text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                                        <a href="/chat" class="font-medium text-purple-400 hover:text-purple-300 transition-colors duration-200">
                                             Go to chat to ask questions about them!
                                         </a>
                                     </p>

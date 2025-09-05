@@ -32,7 +32,7 @@ def create_enhanced_pdf_summary(content, filename):
             fontSize=18,
             spaceAfter=30,
             alignment=TA_CENTER,
-            textColor=colors.darkblue,
+            textColor=colors.purple,
             fontName='Helvetica-Bold'
         ),
         'CustomHeading': ParagraphStyle(
@@ -41,7 +41,7 @@ def create_enhanced_pdf_summary(content, filename):
             fontSize=14,
             spaceBefore=20,
             spaceAfter=12,
-            textColor=colors.darkblue,
+            textColor=colors.purple,
             fontName='Helvetica-Bold'
         ),
         'CustomSubheading': ParagraphStyle(
