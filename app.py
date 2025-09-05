@@ -253,9 +253,9 @@ if __name__ == '__main__':
     # Initialize the RAG handler on startup (optional - will be initialized when needed)
     try:
         rag_handler.initialize()
-        print("RAG handler initialized successfully on startup.")
+        print("PDF-IQ system initialized successfully on startup.")
     except Exception as e:
         print(f"RAG handler initialization failed on startup: {e}")
-        print("RAG handler will be initialized when first needed.")
+        print("PDF-IQ will be initialized when first needed.")
     
     app.run(debug=True, port=5050)

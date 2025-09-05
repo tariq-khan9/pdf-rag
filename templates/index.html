@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF RAG - Document Upload</title>
+    <title>PDF-IQ - Document Upload</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +34,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center py-6">
                     <div class="flex items-center">
-                        <h1 class="text-3xl font-bold text-white">PDF RAG System</h1>
+                        <h1 class="text-3xl font-bold text-white">PDF-IQ System</h1>
                         <span class="ml-3 px-3 py-1 bg-purple-900 text-purple-200 text-sm font-medium rounded-full">
                             Document Upload
                         </span>
@@ -75,7 +75,7 @@
                                 <label for="file" class="block text-sm font-medium text-gray-300 mb-2">
                                     Select PDF File
                                 </label>
-                                <input id="file" name="file" type="file" accept=".pdf" class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-gray-200 hover:file:bg-gray-600 bg-gray-700 border border-gray-600 rounded-md" required>
+                                <input id="file" name="file" type="file" accept=".pdf" class="  text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-gray-200 hover:file:bg-gray-600 bg-gray-700 border border-gray-600 rounded-md" required>
                                 <p class="mt-1 text-sm text-gray-400">PDF files only (Max 50MB)</p>
                                 
                                 <!-- File info display -->
@@ -143,7 +143,7 @@
                                     <p class="text-sm text-purple-300 mt-1">
                                         You have <strong>{{ files|length }}</strong> document(s) uploaded. 
                                         <a href="/chat" class="font-medium text-purple-400 hover:text-purple-300 transition-colors duration-200">
-                                            Go to chat to ask questions about them!
+                                            Start chatting with PDF-IQ Assistant!
                                         </a>
                                     </p>
                                 </div>
@@ -155,7 +155,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                             </svg>
                             <h3 class="mt-2 text-sm font-medium text-white">No documents uploaded</h3>
-                            <p class="mt-1 text-sm text-gray-400">Upload some PDF files to get started with the RAG system.</p>
+                            <p class="mt-1 text-sm text-gray-400">Upload some PDF files to get started with PDF-IQ.</p>
                         </div>
   {% endif %}
 </div>

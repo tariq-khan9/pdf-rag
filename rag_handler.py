@@ -96,7 +96,7 @@ class RAGHandler:
 
         # Enhanced prompt template with file operations and memory
         prompt_template = PromptTemplate.from_template(
-            f"""You are an intelligent document assistant with access to multiple PDF files and conversation memory.
+            f"""You are PDF-IQ, an intelligent document assistant with access to multiple PDF files and conversation memory.
 
 AVAILABLE FILES:
 {files_context}
