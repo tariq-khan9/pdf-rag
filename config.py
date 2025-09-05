@@ -1,8 +1,21 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables with UTF-16 encoding support
+try:
+    load_dotenv()
+except UnicodeDecodeError:
+    # If UTF-8 fails, try to read the .env file with UTF-16 encoding and convert it
+    import codecs
+    try:
+        with codecs.open('.env', 'r', encoding='utf-16') as f:
+            content = f.read()
+        with open('.env', 'w', encoding='utf-8') as f:
+            f.write(content)
+        load_dotenv()
+    except Exception as e:
+        print(f"Warning: Could not load .env file: {e}")
+        print("Using default configuration values.")
 
 class Config:
     """Configuration class for the Flask application."""
