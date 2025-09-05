@@ -29,12 +29,14 @@
 </head>
 <body class="h-full">
     <div class="min-h-screen bg-gray-900">
-        <!-- Header -->
-        <div class="bg-gray-800 shadow-lg border-b border-gray-700">
+        <!-- Static Navbar -->
+        <nav class="bg-gray-800 shadow-lg border-b border-gray-700 sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center py-6">
+                <div class="flex justify-between items-center py-4">
                     <div class="flex items-center">
-                        <h1 class="text-3xl font-bold text-white">PDF-IQ System</h1>
+                        <a href="/" class="text-3xl font-bold text-white hover:text-purple-300 transition-colors duration-200">
+                            PDF-IQ
+                        </a>
                         <span class="ml-3 px-3 py-1 bg-purple-900 text-purple-200 text-sm font-medium rounded-full">
                             Document Upload
                         </span>
@@ -53,7 +55,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </nav>
 
         <!-- Main Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -167,7 +169,7 @@
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div id="message-container" class="fixed top-4 right-4 z-50 space-y-2">
+            <div id="message-container" class="fixed top-20 right-4 z-50 space-y-2">
                 {% for category, message in messages %}
                     <div class="{% if category == 'error' %}bg-red-600{% else %}bg-green-600{% endif %} text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 border border-gray-600">
                         {% if category == 'error' %}
@@ -195,55 +197,58 @@
                         }, 300);
                     }
                 }, 5000);
-
-                // Simple file upload functionality
-                document.addEventListener('DOMContentLoaded', function() {
-                    console.log('DOM loaded, initializing basic upload functionality...');
-                    
-                    const fileInput = document.getElementById('file');
-                    const uploadBtn = document.getElementById('uploadBtn');
-                    const fileInfo = document.getElementById('fileInfo');
-
-                    console.log('Elements found:', { fileInput, uploadBtn, fileInfo });
-
-                    // Simple file selection handler
-                    if (fileInput) {
-                        fileInput.addEventListener('change', function(e) {
-                            console.log('File selected:', e.target.files[0]);
-                            const file = e.target.files[0];
-                            
-                            if (file) {
-                                fileInfo.textContent = `Selected: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
-                                fileInfo.classList.remove('hidden');
-                                console.log('File info updated');
-                            } else {
-                                fileInfo.classList.add('hidden');
-                            }
-                        });
-                    }
-
-                    // Simple form submission handler
-                    const form = document.getElementById('uploadForm');
-                    if (form) {
-                        form.addEventListener('submit', function(e) {
-                            console.log('Form submitting...');
-                            
-                            if (!fileInput.files[0]) {
-                                e.preventDefault();
-                                alert('Please select a file to upload');
-                                console.log('No file selected, preventing submission');
-                                return;
-                            }
-                            
-                            console.log('File selected, allowing submission');
-                            uploadBtn.innerHTML = 'Uploading...';
-                        });
-                    }
-
-                    console.log('Basic upload functionality initialized');
-                });
             </script>
         {% endif %}
     {% endwith %}
+</div>
+
+<script>
+    // Simple file upload functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, initializing basic upload functionality...');
+        
+        const fileInput = document.getElementById('file');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileInfo = document.getElementById('fileInfo');
+
+        console.log('Elements found:', { fileInput, uploadBtn, fileInfo });
+
+        // Simple file selection handler
+        if (fileInput) {
+            fileInput.addEventListener('change', function(e) {
+                console.log('File selected:', e.target.files[0]);
+                const file = e.target.files[0];
+                
+                if (file) {
+                    fileInfo.textContent = `Selected: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+                    fileInfo.classList.remove('hidden');
+                    console.log('File info updated');
+                } else {
+                    fileInfo.classList.add('hidden');
+                }
+            });
+        }
+
+        // Simple form submission handler
+        const form = document.getElementById('uploadForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                console.log('Form submitting...');
+                
+                if (!fileInput.files[0]) {
+                    e.preventDefault();
+                    alert('Please select a file to upload');
+                    console.log('No file selected, preventing submission');
+                    return;
+                }
+                
+                console.log('File selected, allowing submission');
+                uploadBtn.innerHTML = 'Uploading...';
+            });
+        }
+
+        console.log('Basic upload functionality initialized');
+    });
+</script>
 </body>
 </html>
